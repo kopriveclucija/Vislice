@@ -2,7 +2,7 @@
 
 ## Avtorji 
 
-* Lucija 
+* Lucija Koprivec
 * Anja Petkovič
 * Matija Pretnar
 
