@@ -2,7 +2,7 @@
 
 ## Avtorji 
 
-* Adi Smolar 
+* Lucija Koprivec
 * Anja Petkovič
 * Matija Pretnar
 
