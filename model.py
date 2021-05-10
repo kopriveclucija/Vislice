@@ -1,6 +1,6 @@
 import random
 
-STEVILO_DOVOLJENIH_NAPAK = 10
+STEVILO_DOVOLJENIH_NAPAK = 9
 PRAVILNA_CRKA = '+'
 PONOVLJENA_CRKA = 'o'
 NAPACNA_CRKA = '-'
@@ -86,14 +86,14 @@ class Vislice:
         else:
             return max(self.igre.keys()) + 1
 
-    def nova_igre(self):
+    def nova_igra(self):
         igra = nova_igra()
         id_igre = self.prost_id_igre()
         self.igre[id_igre] = (igra, ZACETEK)
         return id_igre
 
-    def ugibaj(self):
+    def ugibaj(self, id_igre, crka):
         (igra, _) = self.igre[id_igre]
-        stanje = igra.ugibaj(crko)
+        stanje = igra.ugibaj(crka)
         self.igre[id_igre] = (igra, stanje)
         
