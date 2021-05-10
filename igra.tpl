@@ -1,9 +1,6 @@
 % import model
+%rebase('base.tpl', title='Vislice')
 
-<!DOCTYPE html>
-<html>
-
-<body>
 <table>
     <tr>
         <td>
@@ -22,7 +19,7 @@
 % if poskus == model.ZMAGA:
 <h1>Zmaga!</h1>
 Uganili ste pravilno geslo. Čestike!
-<form action="/igra/" method="get">
+<form action="/nova_igra/" method="post">
     <button type="submit">Nova igra</button>
 </form>
 
@@ -30,17 +27,14 @@ Uganili ste pravilno geslo. Čestike!
 <h2>Izgubili ste!</h2>
 Pravilno geslo je:  {{igra.geslo}}
 
-<form action="/igra/" method="get">
+<form action="/nova_igra/" method="post">
     <button type="submit">Nova igra</button>
 </form>
 
 % else:
-<form action="/igra/{{id_igre}}/" method="post">
+<form action="/igra/" method="post">
     <input type="text" name="crka" autofocus>
     <button type="submit">Ugibaj!</button>
 </form>
 
 % end
-</body>
-
-</html>
