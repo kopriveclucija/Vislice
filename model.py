@@ -1,4 +1,5 @@
 import random
+import json
 
 STEVILO_DOVOLJENIH_NAPAK = 9
 PRAVILNA_CRKA = '+'
@@ -7,6 +8,7 @@ NAPACNA_CRKA = '-'
 ZMAGA = 'W'
 PORAZ = 'X'
 ZACETEK = 'S'
+
 
 class Igra:
 
@@ -77,8 +79,9 @@ def nova_igra():
     return Igra(geslo, [])
 
 class Vislice:
-    def __init__(self):
-        self.igre = {}
+    def __init__(self, datoteka_s_stanjem):
+        self.igra = {}
+        self.datoteka_s_stanjem = datoteka_s_stanjem
 
     def prost_id_igre(self):
         if self.igre == {}:
@@ -87,13 +90,26 @@ class Vislice:
             return max(self.igre.keys()) + 1
 
     def nova_igra(self):
+        self.nalozi_igre_iz_datoteke()
         igra = nova_igra()
         id_igre = self.prost_id_igre()
         self.igre[id_igre] = (igra, ZACETEK)
+        self.zapisi_igre_v_datoteko()
         return id_igre
 
     def ugibaj(self, id_igre, crka):
+        self.nalozi_igre_iz_datoteke()
         (igra, _) = self.igre[id_igre]
         stanje = igra.ugibaj(crka)
         self.igre[id_igre] = (igra, stanje)
-        
+        self.zapisi_igre_v_datoteko()
+
+    def zapisi_igre_v_datoteko(self):
+        with open(self.datoteka_s_stanjem, 'w', encoding='utf-8') as f:
+            igre_predelano = {id_igre : ((igra.geslo, igra.crke), stanje) for (id_igre, (igra, stanje)) in self.igre.items()}
+            json.dump(igre.predelano, f, ensure_ascii=False) 
+
+    def nalozi_igre_iz_datoteke(self):
+        with open(self.datoteka_s_stanjem, 'r') as f:
+            igre_predelano = json.load(f)
+            self.igre = {int(id_igre): (Igra(geslo, crke), stanje) for (id_igre, ((geslo, crke), stanje)) in igre_predelano.items()}
